@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/avatar">
+
+    <Button
+        android:text="@string/get_started"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/material_drawer_dark_selected_text"
+        android:textColor="@color/md_white_1000"
+        android:layout_alignParentBottom="true"
+        android:onClick="getStarted"
+        android:layout_alignEnd="@+id/textWelcome"
+        android:layout_marginBottom="109dp"
+        android:id="@+id/btn_get_started" />
+
+    <TextView
+        android:text="@string/welcome_my_lovely_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="118dp"
+        android:id="@+id/textWelcome"
+        android:textSize="17sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

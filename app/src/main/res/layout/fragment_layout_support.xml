@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:text="@string/text_description_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:id="@+id/desc_email"
+        android:textSize="16sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/btn_send_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/material_drawer_dark_selected_text"
+        android:textColor="@color/md_white_1000"
+        android:id="@+id/btn_send_email"
+        android:onClick="sendMail"
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="50"
+        android:id="@+id/text_message_email"
+        android:typeface="monospace"
+        android:fontFamily="serif"
+        android:layout_alignWithParentIfMissing="false"
+        android:paddingTop="225dp"
+        android:layout_centerVertical="true"
+        android:inputType="none"
+        style="@android:style/Widget.AutoCompleteTextView"
+        android:layout_alignStart="@+id/desc_email"
+        android:layout_alignEnd="@+id/desc_email"
+        android:selectAllOnFocus="false"
+        android:singleLine="false"
+        tools:text="Enter your message here" />
+
+</RelativeLayout>

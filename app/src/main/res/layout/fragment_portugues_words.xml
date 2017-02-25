@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/portugal_layout">
+
+    <TextView
+        android:text="@string/portugal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="98dp"
+        android:id="@+id/text_portugal_words"
+        android:textSize="19sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/btn_generate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/material_drawer_dark_selected_text"
+        android:textColor="@color/md_white_1000"
+        android:onClick="sendMail"
+        android:id="@+id/btn_portugal_words"
+        android:layout_below="@+id/text_portugal_words"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58dp" />
+</RelativeLayout>
