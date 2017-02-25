@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:background="@color/material_drawer_dark_selected_text"
         android:textColor="@color/md_white_1000"
-        android:onClick="sendMail"
+        android:onClick="generatePortugal"
         android:id="@+id/btn_portugal_words"
         android:layout_below="@+id/text_portugal_words"
         android:layout_centerHorizontal="true"

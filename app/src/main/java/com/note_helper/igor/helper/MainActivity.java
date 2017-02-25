@@ -2,22 +2,20 @@ package com.note_helper.igor.helper;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.Button;
+import android.view.View;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
@@ -25,7 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerItemClickListener {
 
     private Drawer drawerResult;
 
@@ -51,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         manager = getSupportFragmentManager();
         initializeActivityFragments();
-        initializeNavigationDrawer(toolbar);
 
-        initializeCollections();
         textPortugalView = (TextView) findViewById(R.id.text_portugal_words);
         textEnglishView = (TextView) findViewById(R.id.text_english_words);
         random = new Random();
         portugalWords = new LinkedList<>();
         englishWords = new LinkedList<>();
+        initializeCollections();
+        initializeNavigationDrawer(toolbar);
     }
 
     public void generatePortugal(View view) {
@@ -122,108 +120,61 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeNavigationDrawer(Toolbar toolbar) {
-
         AccountHeader headerResult = createAccountHeader();
-
         drawerResult = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withDisplayBelowStatusBar(false)
                 .withAccountHeader(headerResult)
                 .withActionBarDrawerToggleAnimated(true)
-                .addDrawerItems(new PrimaryDrawerItem()
-                                .withName(R.string.home).withIdentifier(1)
-                                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                                    @Override
-                                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                                        if (manager.findFragmentByTag(WelcomeActivityFragment.TAG) == null) {
-                                            transaction = manager.beginTransaction()
-                                                    .replace(R.id.container_r, welcomeActivityFragment, WelcomeActivityFragment.TAG);
-                                            transaction.commit();
-                                        }
-                                        return true;
-                                    }
-                                }),
-                        new DividerDrawerItem(),
-                        new SecondaryDrawerItem()
-                                .withName(R.string.english)
-                                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                                    @Override
-                                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                                        if (manager.findFragmentByTag(EnglishActivityFragment.TAG) == null) {
-                                            transaction = manager.beginTransaction()
-                                                    .replace(R.id.container_r, englishActivityFragment);
-                                            transaction.commit();
-                                        }
-                                        return true;
-                                    }
-                                }),
-                        new DividerDrawerItem(),
-                        new SecondaryDrawerItem()
-                                .withName(R.string.portugal).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                            @Override
-                            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                                if (manager.findFragmentByTag(PortugalActivityFragment.TAG) == null) {
-                                    transaction = manager.beginTransaction()
-                                            .replace(R.id.container_r, portugalActivityFragment, PortugalActivityFragment.TAG);
-                                    transaction.commit();
-                                }
-                                return true;
-                            }
-                        }),
-                        new DividerDrawerItem(),
-                        new SecondaryDrawerItem()
-                                .withName(R.string.settings).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                            @Override
-                            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                                if (manager.findFragmentByTag(SettingActivityFragment.TAG) == null) {
-                                    transaction = manager.beginTransaction()
-                                            .replace(R.id.container_r, settingActivityFragment, SettingActivityFragment.TAG);
-                                    transaction.commit();
-                                }
-                                return true;
-                            }
-                        }),
-                        new DividerDrawerItem(),
-                        new SecondaryDrawerItem()
-                                .withName(R.string.about).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                            @Override
-                            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                                if (manager.findFragmentByTag(AboutActivityFragment.TAG) == null) {
-                                    transaction = manager.beginTransaction()
-                                            .replace(R.id.container_r, aboutActivityFragment, AboutActivityFragment.TAG);
-                                    transaction.commit();
-                                }
-                                return true;
-                            }
-                        }),
-                        new DividerDrawerItem(),
-                        new SecondaryDrawerItem()
-                                .withName(R.string.support).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                            @Override
-                            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                                if (manager.findFragmentByTag(SupportActivityFragment.TAG) == null) {
-                                    transaction = manager.beginTransaction()
-                                            .replace(R.id.container_r, supportActivityFragment, SupportActivityFragment.TAG);
-                                    transaction.commit();
-                                }
-                                return true;
-                            }
-                        })
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-
-                        return false;
-                    }
-                })
+                .withHasStableIds(true)
+                .addDrawerItems(new PrimaryDrawerItem().withName(R.string.home).withIdentifier(0))
+                .addDrawerItems(new PrimaryDrawerItem().withName(R.string.english).withIdentifier(1))
+                .addDrawerItems(new PrimaryDrawerItem().withName(R.string.portugal).withIdentifier(2))
+                .addDrawerItems(new PrimaryDrawerItem().withName(R.string.settings).withIdentifier(3))
+                .addDrawerItems(new PrimaryDrawerItem().withName(R.string.about).withIdentifier(4))
+                .addDrawerItems(new PrimaryDrawerItem().withName(R.string.support).withIdentifier(5))
+                .withSelectedItem(0)
+                .withFireOnInitialOnClick(true)
+                .withOnDrawerItemClickListener(this)
                 .build();
+    }
 
+    @Override
+    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+        Fragment fragment= null;
+        switch ((int) drawerItem.getIdentifier()) {
+            case 0:
+                fragment = new WelcomeActivityFragment();
+                break;
+            case 1:
+                fragment = new EnglishActivityFragment();
+                break;
+            case 2:
+                fragment = new PortugalActivityFragment();
+                break;
+            case 3:
+                fragment = new SettingActivityFragment();
+                break;
+            case 4:
+                fragment = new AboutActivityFragment();
+                break;
+            case 5:
+                fragment = new SupportActivityFragment();
+                break;
+            default:
+                break;
+        }
+
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container_r, fragment)
+                    .commitAllowingStateLoss();
+        }
+        return false;
     }
 
     private AccountHeader createAccountHeader() {
-
         IProfile profile = new ProfileDrawerItem()
                 .withName("Tetyana Zakharchenko")
                 .withEmail("Zakharchenko_t@gmail.com")
