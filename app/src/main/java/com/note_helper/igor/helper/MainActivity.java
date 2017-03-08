@@ -1,5 +1,9 @@
 package com.note_helper.igor.helper;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -14,10 +18,12 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.note_helper.igor.helper.sqlite_db.SqliteHelper;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
     private List<String> portugalWords;
     private List<String> englishWords;
     private Random random;
+    private SqliteHelper sqliteHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,22 +56,22 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
         setSupportActionBar(toolbar);
         manager = getSupportFragmentManager();
         initializeActivityFragments();
-
+        random = new Random();
         textPortugalView = (TextView) findViewById(R.id.text_portugal_words);
         textEnglishView = (TextView) findViewById(R.id.text_english_words);
-        random = new Random();
         portugalWords = new LinkedList<>();
         englishWords = new LinkedList<>();
         initializeCollections();
         initializeNavigationDrawer(toolbar);
+        sqliteHelper = new SqliteHelper(this);
     }
 
     public void generatePortugal(View view) {
-        textPortugalView.setText(portugalWords.get(random.nextInt(portugalWords.size())));
+        textPortugalView.setText(portugalWords.get(new Random().nextInt(portugalWords.size())));
     }
 
     public void generateEnglish(View view) {
-        textEnglishView.setText(englishWords.get(random.nextInt(englishWords.size())));
+        textEnglishView.setText(englishWords.get(new Random().nextInt(englishWords.size())));
     }
 
     @Override
@@ -82,7 +89,33 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
     }
 
     public void sendMail(View view) {
-        Snackbar.make(view, "I have not implemented yet", Snackbar.LENGTH_LONG).show();
+//        Snackbar.make(view, "I have not implemented yet", Snackbar.LENGTH_LONG).show();
+    }
+
+    public void addEngWords(View view) {
+
+        String approximately = "Approximately";
+
+        SQLiteDatabase sqLiteDatabase = sqliteHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(SqliteHelper.ENGLISH_WORDS, approximately);
+        sqLiteDatabase.insert(SqliteHelper.ENG_WRD, null, contentValues);
+    }
+
+    public void getEngWords(View view) {
+
+        SQLiteDatabase writableDatabase = sqliteHelper.getWritableDatabase();
+        Cursor query = writableDatabase.query(SqliteHelper.ENGLISH_WORDS, null, null, null, null, null, null);
+
+        while (query.moveToNext()) {
+            int columnIndex = query.getColumnIndex(SqliteHelper.KEY_ID_FOR_ENG);
+
+            String columnName = query.getColumnName(columnIndex);
+            System.out.println(columnName);
+            System.out.println(columnName);
+        }
+        query.close();
     }
 
     private void initializeCollections() {
