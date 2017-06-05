@@ -1,34 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/backg"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Типу тут добавлятимеш слова"
+        android:text="@string/fell_free_to_configure_your_database"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2"
         android:layout_alignParentTop="true"
+        android:textColor="@color/md_white_1000"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="93dp" />
+        android:layout_marginTop="25dp"
+        android:id="@+id/settingsTitle" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:id="@+id/spinner_choice_language"
+        android:minWidth="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="51dp"
+        android:layout_below="@+id/settingsTitle"
+        android:entries="@array/languages"
+        android:layout_alignParentStart="true" />
 
     <Button
-        android:text="Show"
+        android:id="@+id/btn_configure_database"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="getEngWords"
-        android:id="@+id/button2"
-        android:layout_below="@+id/button"
-        android:layout_alignStart="@+id/button"
-        android:layout_marginTop="130dp" />
-
-    <Button
-        android:text="Add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="addEngWords"
-        android:layout_marginTop="92dp"
-        android:id="@+id/button"
-        android:layout_below="@+id/textView2"
+        android:background="@color/material_drawer_dark_selected_text"
+        android:onClick="builder"
+        android:text="@string/add_words"
+        android:textColor="@color/md_white_1000"
+        android:layout_marginTop="128dp"
+        android:width="175dp"
+        android:layout_below="@+id/spinner_choice_language"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/spinner_choice_language"
+        android:layout_alignEnd="@+id/settingsTitle"
+        android:layout_marginTop="56dp"
+        android:id="@+id/text_words_database" />
 </RelativeLayout>

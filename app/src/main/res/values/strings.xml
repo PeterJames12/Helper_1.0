@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Helper</string>
+    <string name="app_name">Champion cup k4k</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -13,14 +13,21 @@
     <string name="welcome">Welcome</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="welcome_my_lovely_friend">Welcome my lovely friend</string>
+    <string name="welcome_my_lovely_friend">Be happy my lovely friend</string>
     <string name="get_started">Get started</string>
     <string name="portuguese">Portuguese</string>
     <string name="title_activity_mail">MailActivity</string>
     <string name="btn_send_email">Send</string>
-    <string name="text_description_email">Should you have any question contact me directly</string>
+    <string name="text_description_email">If you have any question contact me directly</string>
     <string name="title_activity_about">AboutActivity</string>
-    <string name="developed_by">Developed by Peter James</string>
+    <string name="developed_by">Developed by Igor Hnes</string>
     <string name="version">Version 1.0</string>
     <string name="title_activity_setting">SettingActivity</string>
+    <string name="fell_free_to_configure_your_database">Fell free to configure your database</string>
+    <string name="add_words">Add words</string>
+
+    <string-array name="languages">
+        <item>English</item>
+        <item>Portuguese</item>
+    </string-array>
 </resources>
